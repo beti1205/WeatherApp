@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="page_title">Warszawa</string>
+    <string name="city_change">City change</string>
+    <string name="temperature">%s ℃</string>
+    <string name="max_temperature">Max:\n%s ℃</string>
+    <string name="min_temperature">Min: \n%s ℃</string>
+    <string name="wind_speed">%s m/s</string>
+    <string name="visibility">%s m</string>
+    <string name="humidity">%s %%</string>
+    <string name="pressure">%s hPa</string>
+</resources>
