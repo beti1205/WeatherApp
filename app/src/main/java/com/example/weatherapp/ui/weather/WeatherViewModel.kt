@@ -11,8 +11,8 @@ import kotlin.Exception
 
 private const val key = "5fe4e1715cf27ea3002f0c66ebda3d51"
 private const val units = "metric"
-private const val latitudeWarsaw = "52.15"
-private const val longitudeWarsaw = "21.00"
+private const val latitudeWarsaw = 52.15
+private const val longitudeWarsaw = 21.00
 
 class WeatherViewModel : ViewModel() {
 
@@ -22,16 +22,12 @@ class WeatherViewModel : ViewModel() {
         get() = _response
 
 
-    init {
-        getWeatherReport()
-    }
-
-    private fun getWeatherReport() {
+    fun fetchWeatherReport(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
         viewModelScope.launch {
             try {
                 val response = WeatherApi.retrofitService.getWeather(
-                    latitudeWarsaw,
-                    longitudeWarsaw,
+                    latitude.toString(),
+                    longitude.toString(),
                     key,
                     units
                 )

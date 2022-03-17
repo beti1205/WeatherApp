@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.weatherapp.data.DailyWeather
 import com.example.weatherapp.data.setWeatherImage
 import com.example.weatherapp.databinding.ListItemDailyWeatherBinding
+import com.example.weatherapp.utils.formattedDate
+import com.example.weatherapp.utils.formattedDayName
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,17 +35,12 @@ class DailyWeatherAdapter :
         private val binding: ListItemDailyWeatherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val dateFormat = SimpleDateFormat.getDateInstance()
-        private val dayFormat = SimpleDateFormat("E", Locale.getDefault())
-
         fun bind(dailyWeather: DailyWeather) {
-            val iconId = dailyWeather.weather.joinToString { it.icon }
+            val iconId = dailyWeather.weather.first().icon
             binding.dailyWeatherIcon.setWeatherImage(iconId)
-            binding.date.text = dateFormat.format(dailyWeather.time)
-            binding.day.text = dayFormat.format(dailyWeather.time)
-            binding.dailyWeatherDescription.text = dailyWeather.weather.joinToString { weather ->
-                weather.description
-            }
+            binding.date.text = dailyWeather.time.formattedDate
+            binding.day.text = dailyWeather.time.formattedDayName
+            binding.dailyWeatherDescription.text = dailyWeather.weather.first().description
         }
 
     }

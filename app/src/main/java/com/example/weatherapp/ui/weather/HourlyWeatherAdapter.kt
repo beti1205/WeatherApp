@@ -10,6 +10,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.data.HourlyWeather
 import com.example.weatherapp.data.setWeatherImage
 import com.example.weatherapp.databinding.ListItemHourlyWeatherBinding
+import com.example.weatherapp.utils.formattedTimeShort
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,21 +37,10 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
         private val binding: ListItemHourlyWeatherBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val simpleDateFormat = SimpleDateFormat("hh:mm a",Locale.getDefault())
-
         fun bind(hourlyWeather: HourlyWeather) {
-
-            val iconId = hourlyWeather.weather.joinToString { it.icon }
-//            val imageUri = "https://openweathermap.org/img/wn/$iconId@2x.png"
-
+            val iconId = hourlyWeather.weather.first().icon
             binding.hourlyWeatherIcon.setWeatherImage(iconId)
-
-//            Glide.with(binding.hourlyWeatherIcon.context)
-//                .load(imageUri)
-//                .into(binding.hourlyWeatherIcon)
-
-            val hourFormat = simpleDateFormat.format(hourlyWeather.time)
-            binding.time.text = hourFormat.toString()
+            binding.time.text = hourlyWeather.time.formattedTimeShort
             binding.hourlyTemperature.text = binding.hourlyTemperature.context.getString(
                 R.string.temperature,
                 hourlyWeather.temp.toInt().toString()
@@ -60,11 +50,11 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
 
     companion object DiffCallback : DiffUtil.ItemCallback<HourlyWeather>() {
         override fun areItemsTheSame(oldItem: HourlyWeather, newItem: HourlyWeather): Boolean {
-            return oldItem === newItem
+            return oldItem.time == newItem.time
         }
 
         override fun areContentsTheSame(oldItem: HourlyWeather, newItem: HourlyWeather): Boolean {
-            return oldItem.temp == newItem.temp
+            return oldItem == newItem
         }
 
     }
