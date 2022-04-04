@@ -9,4 +9,5 @@
     <string name="visibility">%s m</string>
     <string name="humidity">%s %%</string>
     <string name="pressure">%s hPa</string>
+    <string name="fetch_city_name_error">No city name found</string>
 </resources>

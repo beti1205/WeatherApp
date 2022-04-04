@@ -1,51 +1,48 @@
 package com.example.weatherapp.ui.weather
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.network.Result
-import com.example.weatherapp.network.WeatherApi
-import com.example.weatherapp.data.WeatherReport
+import com.example.weatherapp.common.Result
+import com.example.weatherapp.feature.fetchcityname.data.AppConfig
+import com.example.weatherapp.feature.fetchcityname.domain.FetchCityNameUseCase
+import com.example.weatherapp.feature.fetchweather.data.WeatherReport
+import com.example.weatherapp.feature.fetchweather.data.WeatherApiService
+import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.Exception
 
-private const val key = "5fe4e1715cf27ea3002f0c66ebda3d51"
 private const val units = "metric"
 private const val latitudeWarsaw = 52.15
 private const val longitudeWarsaw = 21.00
+private const val limit = 200
 
-class WeatherViewModel : ViewModel() {
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
+    private val fetchWeatherUseCase: FetchWeatherUseCase,
+    private val fetchCityNameUseCase: FetchCityNameUseCase,
+    private val config: AppConfig
+) : ViewModel() {
 
-    private val _response = MutableLiveData<Result<WeatherReport>>()
+    private val _weatherReport = MutableLiveData<Result<WeatherReport>>()
+    val weatherReport: LiveData<Result<WeatherReport>> = _weatherReport
 
-    val response: MutableLiveData<Result<WeatherReport>>
-        get() = _response
-
+    private val _cityName = MutableLiveData<Result<String?>>()
+    val cityName: LiveData<Result<String?>> = _cityName
 
     fun fetchWeatherReport(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
         viewModelScope.launch {
-            try {
-                val response = WeatherApi.retrofitService.getWeather(
-                    latitude.toString(),
-                    longitude.toString(),
-                    key,
-                    units
-                )
-                _response.value = Result.Success(response)
-            } catch (e: Exception) {
-                _response.value = Result.Error(e)
-            }
+       _weatherReport.value = fetchWeatherUseCase(latitude, longitude, units)
         }
     }
 
-
+    fun fetchCityName(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
+        viewModelScope.launch {
+            _cityName.value = fetchCityNameUseCase(latitude, longitude, limit)
+        }
+    }
 }
-
-//inline fun <reified T : Any> performRequest(block: () -> T): Result<T> {
-//    return try {
-//        Result.Success(block())
-//    } catch (ex: Exception) {
-//        Result.Error(ex)
-//    }
-//}
 

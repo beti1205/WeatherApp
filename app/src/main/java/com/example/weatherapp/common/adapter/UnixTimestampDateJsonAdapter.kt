@@ -1,4 +1,4 @@
-package com.example.weatherapp.data.adapters
+package com.example.weatherapp.common.adapter
 
 import com.squareup.moshi.*
 import java.io.IOException

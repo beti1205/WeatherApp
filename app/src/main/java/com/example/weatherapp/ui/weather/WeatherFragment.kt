@@ -2,7 +2,6 @@ package com.example.weatherapp.ui.weather
 
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -12,17 +11,21 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.weatherapp.R
-import com.example.weatherapp.data.WeatherReport
+import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.data.setWeatherImage
-import com.example.weatherapp.network.Result
+import com.example.weatherapp.common.Result
 import com.example.weatherapp.databinding.FragmentWeatherBinding
 import com.example.weatherapp.utils.formattedTime
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherFragment : Fragment(R.layout.fragment_weather) {
-    private lateinit var viewModel: WeatherViewModel
+
+    private val viewModel: WeatherViewModel by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
@@ -40,13 +43,19 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
         val hourlyAdapter = HourlyWeatherAdapter()
         binding.hourlyWeather.adapter = hourlyAdapter
 
-        viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
-
-        viewModel.response.observe(viewLifecycleOwner) { response ->
+        viewModel.weatherReport.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Result.Success -> handleSuccess(response, dailyAdapter, hourlyAdapter)
                 is Result.Error -> handleError(response)
             }
+        }
+
+        viewModel.cityName.observe(viewLifecycleOwner) { response ->
+            binding.topAppBar.title = when (response) {
+                is Result.Error -> getString(R.string.fetch_city_name_error)
+                is Result.Success -> response.data
+            }
+
         }
 
         val requestPermissionLauncher = createActivityResultLauncher()
@@ -116,6 +125,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
                 getLastLocation()
             } else {
                 viewModel.fetchWeatherReport()
+                viewModel.fetchCityName()
             }
         }
         return requestPermissionLauncher
@@ -141,6 +151,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             val result = location.result
             if (result != null) {
                 viewModel.fetchWeatherReport(result.latitude, result.longitude)
+                viewModel.fetchCityName(result.latitude, result.longitude)
             }
         }
     }

@@ -5,14 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.weatherapp.R
-import com.example.weatherapp.data.HourlyWeather
+import com.example.weatherapp.feature.fetchweather.data.HourlyWeather
 import com.example.weatherapp.data.setWeatherImage
 import com.example.weatherapp.databinding.ListItemHourlyWeatherBinding
 import com.example.weatherapp.utils.formattedTimeShort
-import java.text.SimpleDateFormat
-import java.util.*
 
 class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.ViewHolder>(
     DiffCallback

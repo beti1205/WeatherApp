@@ -1,4 +1,4 @@
-package com.example.weatherapp.data
+package com.example.weatherapp.feature.fetchweather.data
 
 import com.squareup.moshi.Json
 import java.util.*
