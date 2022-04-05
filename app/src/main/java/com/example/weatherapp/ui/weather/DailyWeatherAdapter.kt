@@ -49,11 +49,11 @@ class DailyWeatherAdapter :
 
     companion object DiffCallback : DiffUtil.ItemCallback<DailyWeather>() {
         override fun areItemsTheSame(oldItem: DailyWeather, newItem: DailyWeather): Boolean {
-            return oldItem === newItem
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: DailyWeather, newItem: DailyWeather): Boolean {
-            return oldItem.temp == newItem.temp
+            return oldItem.time == newItem.time
         }
 
     }
