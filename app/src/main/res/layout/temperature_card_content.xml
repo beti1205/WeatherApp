@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    tools:showIn="@layout/fragment_weather">
+
+    <TextView
+        android:id="@+id/max_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Max:\n9 C" />
+
+    <View
+        android:id="@+id/temperature_divider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#DAD7DC"
+        app:layout_constraintBottom_toBottomOf="@+id/max_temperature"
+        app:layout_constraintEnd_toStartOf="@+id/min_temperature"
+        app:layout_constraintStart_toEndOf="@+id/max_temperature"
+        app:layout_constraintTop_toTopOf="@id/max_temperature" />
+
+    <TextView
+        android:id="@+id/min_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        app:layout_constraintStart_toEndOf="@id/temperature_divider"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Min:\n-1 C" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+            

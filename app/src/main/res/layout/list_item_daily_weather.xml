@@ -1,62 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:background="#03A9F4">
+    android:padding="8dp"
+    tools:background="?colorSecondary"
+    tools:showIn="@layout/fragment_weather">
 
     <TextView
         android:id="@+id/day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:text="Today"
-        android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Today" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         android:paddingBottom="8dp"
-        android:text="22.02.22"
-        android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         app:layout_constraintBottom_toTopOf="@id/daily_weather_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/day" />
+        app:layout_constraintTop_toBottomOf="@id/day"
+        tools:text="22.02.22" />
 
     <ImageView
         android:id="@+id/daily_weather_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintBottom_toTopOf="@id/daily_weather_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date"
-        app:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+        app:srcCompat="@drawable/ic_baseline_wb_sunny_24"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/daily_weather_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="clear sky"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/daily_weather_icon" />
+        app:layout_constraintTop_toBottomOf="@id/daily_weather_icon"
+        tools:text="clear sky" />
+
+    <TextView
+        android:id="@+id/daily_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/daily_weather_description"
+        tools:text="10 degrees" />
 </androidx.constraintlayout.widget.ConstraintLayout>

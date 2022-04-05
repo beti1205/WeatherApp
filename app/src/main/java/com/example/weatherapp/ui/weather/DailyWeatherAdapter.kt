@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.R
 import com.example.weatherapp.feature.fetchweather.data.DailyWeather
 import com.example.weatherapp.data.setWeatherImage
 import com.example.weatherapp.databinding.ListItemDailyWeatherBinding
@@ -37,7 +38,11 @@ class DailyWeatherAdapter :
             binding.dailyWeatherIcon.setWeatherImage(iconId)
             binding.date.text = dailyWeather.time.formattedDate
             binding.day.text = dailyWeather.time.formattedDayName
-            binding.dailyWeatherDescription.text = dailyWeather.weather.first().description
+            binding.dailyWeatherDescription.text = dailyWeather.weather.first().main
+            binding.dailyTemperature.text = binding.dailyTemperature.context.getString(
+                R.string.temperature,
+                dailyWeather.temp.max.toInt().toString()
+            )
         }
 
     }

@@ -23,8 +23,7 @@ private const val limit = 200
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
-    private val fetchCityNameUseCase: FetchCityNameUseCase,
-    private val config: AppConfig
+    private val fetchCityNameUseCase: FetchCityNameUseCase
 ) : ViewModel() {
 
     private val _weatherReport = MutableLiveData<Result<WeatherReport>>()
@@ -35,7 +34,7 @@ class WeatherViewModel @Inject constructor(
 
     fun fetchWeatherReport(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
         viewModelScope.launch {
-       _weatherReport.value = fetchWeatherUseCase(latitude, longitude, units)
+            _weatherReport.value = fetchWeatherUseCase(latitude, longitude, units)
         }
     }
 

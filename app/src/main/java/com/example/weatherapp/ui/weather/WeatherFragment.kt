@@ -12,6 +12,10 @@ import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.data.setWeatherImage
@@ -22,7 +26,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     private val viewModel: WeatherViewModel by viewModels()
@@ -37,11 +40,15 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
+        setupAppBar()
+
+//        activity.setTitle()
+
         val dailyAdapter = DailyWeatherAdapter()
-        binding.dailyWeather.adapter = dailyAdapter
+        binding.dailyWeatherContent.dailyWeather.adapter = dailyAdapter
 
         val hourlyAdapter = HourlyWeatherAdapter()
-        binding.hourlyWeather.adapter = hourlyAdapter
+        binding.hourlyWeatherContent.hourlyWeather.adapter = hourlyAdapter
 
         viewModel.weatherReport.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -55,11 +62,17 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
                 is Result.Error -> getString(R.string.fetch_city_name_error)
                 is Result.Success -> response.data
             }
-
         }
 
         val requestPermissionLauncher = createActivityResultLauncher()
         checkPermission(requestPermissionLauncher)
+    }
+
+    private fun setupAppBar() {
+        val navController = findNavController()
+        binding.topAppBar.setOnMenuItemClickListener { item ->
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }
     }
 
     private fun handleError(response: Result.Error) {
@@ -82,38 +95,44 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     private fun WeatherReport.bindCurrentWeather() {
         val iconId = current.weather.first().icon
-        binding.todayImage.setWeatherImage(iconId)
-        binding.temperature.text = getString(
-            R.string.temperature,
-            current.temp.toInt().toString()
-        )
-        binding.description.text = current.weather.first().description
-        binding.maxTemperature.text = getString(
-            R.string.max_temperature,
-            daily.first().temp.max.toInt().toString()
-        )
-        binding.minTemperature.text = getString(
-            R.string.min_temperature,
-            daily.first().temp.min.toInt().toString()
-        )
-        binding.sunriseTime.text = current.sunrise.formattedTime
-        binding.sunsetTime.text = current.sunset.formattedTime
-        binding.currentHumidity.text = getString(
-            R.string.humidity,
-            current.humidity.toString()
-        )
-        binding.currentPressure.text = getString(
-            R.string.pressure,
-            current.pressure.toString()
-        )
-        binding.currentVisibility.text = getString(
-            R.string.visibility,
-            current.visibility.toString()
-        )
-        binding.currentWindSpeed.text = getString(
-            R.string.wind_speed,
-            current.windSpeed.toString()
-        )
+        with(binding) {
+            todayImage.setWeatherImage(iconId)
+            temperature.text = getString(
+                R.string.temperature,
+                current.temp.toInt().toString()
+            )
+            description.text = current.weather.first().description
+
+            temperatureContent.maxTemperature.text = getString(
+                R.string.max_temperature,
+                daily.first().temp.max.toInt().toString()
+            )
+            temperatureContent.minTemperature.text = getString(
+                R.string.min_temperature,
+                daily.first().temp.min.toInt().toString()
+            )
+
+            with(weatherDetailsContent) {
+                sunriseTime.text = current.sunrise.formattedTime
+                sunsetTime.text = current.sunset.formattedTime
+                currentHumidity.text = getString(
+                    R.string.humidity,
+                    current.humidity.toString()
+                )
+                currentPressure.text = getString(
+                    R.string.pressure,
+                    current.pressure.toString()
+                )
+                currentVisibility.text = getString(
+                    R.string.visibility,
+                    current.visibility.toString()
+                )
+                currentWindSpeed.text = getString(
+                    R.string.wind_speed,
+                    current.windSpeed.toString()
+                )
+            }
+        }
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -153,20 +172,6 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
                 viewModel.fetchWeatherReport(result.latitude, result.longitude)
                 viewModel.fetchCityName(result.latitude, result.longitude)
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.change -> {
-                TODO()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -9,5 +9,15 @@
     <string name="visibility">%s m</string>
     <string name="humidity">%s %%</string>
     <string name="pressure">%s hPa</string>
+    <string name="floating_action_content">+</string>
+    <string name="daily_weather_header">Daily weather</string>
+    <string name="hourly_weather_header">Weather for every hour</string>
+    <string name="weather_details_header">Details</string>
+    <string name="details_sunrise_label">Sunrise</string>
+    <string name="details_sunset_label">Sunset</string>
+    <string name="details_pressure_label">Pressure</string>
+    <string name="details_humidity_label">Humidity</string>
+    <string name="details_visibility_label">Visibility</string>
+    <string name="details_wind_speed_label">Wind speed</string>
     <string name="fetch_city_name_error">No city name found</string>
 </resources>
