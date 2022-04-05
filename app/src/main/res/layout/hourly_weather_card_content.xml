@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?colorSecondary"
-    tools:showIn="@layout/fragment_weather">
+    tools:showIn="@layout/weather_fragment">
 
     <TextView
         android:id="@+id/title_hourly_weather"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_hourly_weather"
-        tools:listitem="@layout/list_item_hourly_weather" />
+        tools:listitem="@layout/hourly_weather_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

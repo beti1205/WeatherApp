@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/list_item_hourly_weather.xml" value="0.5" />
         <entry key="app/src/main/res/layout/temperature_card_content.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/weather_details_card_content.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/menu/weather_fragment_menu.xml" value="0.3541666666666667" />
       </map>

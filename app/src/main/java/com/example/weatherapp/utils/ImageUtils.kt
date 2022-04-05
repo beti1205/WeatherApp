@@ -1,4 +1,4 @@
-package com.example.weatherapp.data
+package com.example.weatherapp.utils
 
 import android.widget.ImageView
 import com.example.weatherapp.R

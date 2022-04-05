@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
+import com.example.weatherapp.databinding.HourlyWeatherListItemBinding
 import com.example.weatherapp.feature.fetchweather.data.HourlyWeather
-import com.example.weatherapp.data.setWeatherImage
-import com.example.weatherapp.databinding.ListItemHourlyWeatherBinding
+import com.example.weatherapp.utils.setWeatherImage
 import com.example.weatherapp.utils.formattedTimeShort
 
 class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.ViewHolder>(
@@ -16,7 +16,7 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemHourlyWeatherBinding.inflate(
+        val binding = HourlyWeatherListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -31,7 +31,7 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
 
 
     inner class ViewHolder(
-        private val binding: ListItemHourlyWeatherBinding
+        private val binding: HourlyWeatherListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hourlyWeather: HourlyWeather) {

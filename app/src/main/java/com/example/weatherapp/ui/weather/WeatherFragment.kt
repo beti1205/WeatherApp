@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -12,31 +12,30 @@ import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.weatherapp.R
-import com.example.weatherapp.feature.fetchweather.data.WeatherReport
-import com.example.weatherapp.data.setWeatherImage
 import com.example.weatherapp.common.Result
-import com.example.weatherapp.databinding.FragmentWeatherBinding
+import com.example.weatherapp.databinding.WeatherFragmentBinding
+import com.example.weatherapp.utils.setWeatherImage
+import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.utils.formattedTime
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 
-class WeatherFragment : Fragment(R.layout.fragment_weather) {
+@AndroidEntryPoint
+class WeatherFragment : Fragment(R.layout.weather_fragment) {
 
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var _binding: FragmentWeatherBinding? = null
+    private var _binding: WeatherFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding = FragmentWeatherBinding.bind(view)
+        _binding = WeatherFragmentBinding.bind(view)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 

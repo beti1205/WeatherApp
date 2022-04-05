@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item_favourite_city" />
+        tools:listitem="@layout/favourite_city_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_new_city_button"

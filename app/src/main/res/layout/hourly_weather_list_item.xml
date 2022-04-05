@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     tools:background="?colorSecondary"
-    tools:showIn="@layout/fragment_weather">
+    tools:showIn="@layout/weather_fragment">
 
     <TextView
         android:id="@+id/time"

@@ -1,8 +1,10 @@
 package com.example.weatherapp.di
 
 import com.example.weatherapp.common.adapter.UnixTimestampDateJsonAdapter
-import com.example.weatherapp.feature.fetchcityname.data.AppConfig
+import com.example.weatherapp.common.AppConfig
+import com.example.weatherapp.feature.fetchplacebyname.data.PlaceType
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.EnumJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -16,11 +18,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 object CoreModule {
 
     @Provides
-    fun provideAppConfig(): AppConfig{
+    fun provideAppConfig(): AppConfig {
         return AppConfig(
             weatherBaseUrl = "https://api.openweathermap.org/data/2.5/",
             reverseGeocodingBaseUrl = "https://api.openweathermap.org/geo/1.0/",
-            apiKey = "5fe4e1715cf27ea3002f0c66ebda3d51"
+            geocodingUrl = "https://photon.komoot.io/",
+            apiKey = "5fe4e1715cf27ea3002f0c66ebda3d51",
+            limit = 200,
+            units = "metric"
         )
     }
 
@@ -28,6 +33,10 @@ object CoreModule {
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .add(UnixTimestampDateJsonAdapter())
+        .add(
+            PlaceType::class.java,
+            EnumJsonAdapter.create(PlaceType::class.java).withUnknownFallback(PlaceType.UNKNOWN)
+        )
         .build()
 
     @Provides

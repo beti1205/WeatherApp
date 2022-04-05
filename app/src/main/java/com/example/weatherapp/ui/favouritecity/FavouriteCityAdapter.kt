@@ -3,7 +3,7 @@ package com.example.weatherapp.ui.favouritecity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.databinding.ListItemFavouriteCityBinding
+import com.example.weatherapp.databinding.FavouriteCityListItemBinding
 
 class FavouriteCityAdapter : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolder>() {
 
@@ -13,7 +13,7 @@ class FavouriteCityAdapter : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolde
         parent: ViewGroup,
         viewType: Int
     ): FavouriteCityAdapter.ViewHolder {
-        val binding = ListItemFavouriteCityBinding.inflate(
+        val binding = FavouriteCityListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -29,7 +29,7 @@ class FavouriteCityAdapter : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolde
     override fun getItemCount() = data.size
 
     inner class ViewHolder(
-        private val binding: ListItemFavouriteCityBinding
+        private val binding: FavouriteCityListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favouriteCity: String){

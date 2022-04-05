@@ -1,13 +1,11 @@
 package com.example.weatherapp.di
 
-import com.example.weatherapp.feature.fetchcityname.data.AppConfig
-import com.example.weatherapp.feature.fetchcityname.domain.FetchCityNameUseCase
-import com.example.weatherapp.feature.fetchcityname.domain.FetchCityNameUseCaseImpl
 import com.example.weatherapp.feature.fetchweather.data.WeatherApiService
 import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCase
 import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCaseImpl
 import com.squareup.moshi.Moshi
 import dagger.Binds
+import com.example.weatherapp.common.AppConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

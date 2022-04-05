@@ -1,9 +1,9 @@
 package com.example.weatherapp.di
 
+import com.example.weatherapp.feature.fetchplacebyname.data.DirectGeocodingService
+import com.example.weatherapp.feature.fetchplacebyname.domain.FetchPlaceByNameUseCase
+import com.example.weatherapp.feature.fetchplacebyname.domain.FetchPlaceByNameUseCaseImpl
 import com.example.weatherapp.common.AppConfig
-import com.example.weatherapp.feature.fetchplacebycoorinates.data.ReverseGeocodingService
-import com.example.weatherapp.feature.fetchplacebycoorinates.domain.FetchPlaceByCoordinatesUseCase
-import com.example.weatherapp.feature.fetchplacebycoorinates.domain.FetchPlaceByCoordinatesUseCaseImpl
 import com.squareup.moshi.Moshi
 import dagger.Binds
 import dagger.Module
@@ -17,19 +17,19 @@ import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ReverseGeocodingModule {
+abstract class DirectGeocodingModule {
 
     companion object {
 
         @Provides
-        fun provideReverseGeocodingService(
+        fun provideDirectGeocodingService(
             client: OkHttpClient,
             moshi: Moshi,
             appConfig: AppConfig
-        ): ReverseGeocodingService {
+        ): DirectGeocodingService {
             return Retrofit.Builder()
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .baseUrl(appConfig.reverseGeocodingBaseUrl)
+                .baseUrl(appConfig.geocodingUrl)
                 .client(client)
                 .build()
                 .create()
@@ -37,7 +37,7 @@ abstract class ReverseGeocodingModule {
     }
 
     @Binds
-    abstract fun bindPlaceByCoordinatesInterface(
-        fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCaseImpl
-    ): FetchPlaceByCoordinatesUseCase
+    abstract fun bindPlaceByNameInterface(
+        fetchPlaceByNameUseCase: FetchPlaceByNameUseCaseImpl
+    ): FetchPlaceByNameUseCase
 }

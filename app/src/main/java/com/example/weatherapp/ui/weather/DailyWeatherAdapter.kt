@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
+import com.example.weatherapp.databinding.DailyWeatherListItemBinding
 import com.example.weatherapp.feature.fetchweather.data.DailyWeather
-import com.example.weatherapp.data.setWeatherImage
-import com.example.weatherapp.databinding.ListItemDailyWeatherBinding
+import com.example.weatherapp.utils.setWeatherImage
 import com.example.weatherapp.utils.formattedDate
 import com.example.weatherapp.utils.formattedDayName
 
@@ -16,7 +16,7 @@ class DailyWeatherAdapter :
     ListAdapter<DailyWeather, DailyWeatherAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemDailyWeatherBinding.inflate(
+        val binding = DailyWeatherListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -30,7 +30,7 @@ class DailyWeatherAdapter :
     }
 
     inner class ViewHolder(
-        private val binding: ListItemDailyWeatherBinding
+        private val binding: DailyWeatherListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dailyWeather: DailyWeather) {
@@ -38,7 +38,7 @@ class DailyWeatherAdapter :
             binding.dailyWeatherIcon.setWeatherImage(iconId)
             binding.date.text = dailyWeather.time.formattedDate
             binding.day.text = dailyWeather.time.formattedDayName
-            binding.dailyWeatherDescription.text = dailyWeather.weather.first().main
+            binding.dailyWeatherDescription.text = dailyWeather.weather.first().description
             binding.dailyTemperature.text = binding.dailyTemperature.context.getString(
                 R.string.temperature,
                 dailyWeather.temp.max.toInt().toString()

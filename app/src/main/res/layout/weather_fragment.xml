@@ -11,7 +11,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -28,8 +28,7 @@
         android:background="?colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-80dp">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,7 +87,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description">
 
-                <include android:id="@+id/temperature_content" layout="@layout/temperature_card_content" />
+                <include
+                    android:id="@+id/temperature_content"
+                    layout="@layout/temperature_card_content" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -102,7 +103,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card_view_temperature">
 
-                <include android:id="@+id/hourly_weather_content" layout="@layout/hourly_weather_card_content" />
+                <include
+                    android:id="@+id/hourly_weather_content"
+                    layout="@layout/hourly_weather_card_content" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -116,7 +119,9 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@id/card_view">
 
-                <include android:id="@+id/daily_weather_content" layout="@layout/daily_weather_card_content" />
+                <include
+                    android:id="@+id/daily_weather_content"
+                    layout="@layout/daily_weather_card_content" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -130,7 +135,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/daily_card_view">
 
-                <include android:id="@+id/weather_details_content" layout="@layout/weather_details_card_content" />
+                <include
+                    android:id="@+id/weather_details_content"
+                    layout="@layout/weather_details_card_content" />
 
             </com.google.android.material.card.MaterialCardView>
 
