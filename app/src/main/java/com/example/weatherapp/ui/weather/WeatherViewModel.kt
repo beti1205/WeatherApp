@@ -29,16 +29,22 @@ class WeatherViewModel @Inject constructor(
     val cityName: LiveData<Result<String?>> = _cityName
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun fetchWeatherReport(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
+    fun fetchWeatherReport(latitude: Double? = null, longitude: Double? = null) {
         viewModelScope.launch {
-            _weatherReport.value = fetchWeatherUseCase(latitude, longitude)
+            _weatherReport.value = fetchWeatherUseCase(
+                latitude = latitude ?: latitudeWarsaw,
+                longitude = longitude ?: longitudeWarsaw
+            )
         }
     }
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun fetchCityName(latitude: Double = latitudeWarsaw, longitude: Double = longitudeWarsaw) {
+    fun fetchCityName(latitude: Double? = null, longitude: Double? = null) {
         viewModelScope.launch {
-            _cityName.value = fetchPlaceByCoordinatesUseCase(latitude, longitude)
+            _cityName.value = fetchPlaceByCoordinatesUseCase(
+                latitude = latitude ?: latitudeWarsaw,
+                longitude = longitude ?: longitudeWarsaw
+            )
         }
     }
 }

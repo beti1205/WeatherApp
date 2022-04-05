@@ -2,6 +2,7 @@ package com.example.weatherapp.ui.weather
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -166,11 +167,9 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
     @RequiresPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
     private fun getLastLocation() {
         fusedLocationClient.lastLocation.addOnCompleteListener { location ->
-            val result = location.result
-            if (result != null) {
-                viewModel.fetchWeatherReport(result.latitude, result.longitude)
-                viewModel.fetchCityName(result.latitude, result.longitude)
-            }
+            val result: Location? = location.result
+            viewModel.fetchWeatherReport(result?.latitude, result?.longitude)
+            viewModel.fetchCityName(result?.latitude, result?.longitude)
         }
     }
 
