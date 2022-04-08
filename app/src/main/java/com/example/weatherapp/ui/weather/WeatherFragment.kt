@@ -5,16 +5,21 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.annotation.RequiresPermission
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
 import com.example.weatherapp.R
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.databinding.WeatherFragmentBinding
@@ -37,12 +42,9 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = WeatherFragmentBinding.bind(view)
+        setHasOptionsMenu(true)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
-        setupAppBar()
-
-//        activity.setTitle()
 
         val dailyAdapter = DailyWeatherAdapter()
         binding.dailyWeatherContent.dailyWeather.adapter = dailyAdapter
@@ -58,7 +60,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         }
 
         viewModel.cityName.observe(viewLifecycleOwner) { response ->
-            binding.topAppBar.title = when (response) {
+            (activity as? AppCompatActivity)?.supportActionBar?.title = when (response) {
                 is Result.Error -> getString(R.string.fetch_city_name_error)
                 is Result.Success -> response.data
             }
@@ -66,13 +68,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
 
         val requestPermissionLauncher = createActivityResultLauncher()
         checkPermission(requestPermissionLauncher)
-    }
 
-    private fun setupAppBar() {
-        val navController = findNavController()
-        binding.topAppBar.setOnMenuItemClickListener { item ->
-            NavigationUI.onNavDestinationSelected(item, navController)
-        }
     }
 
     private fun handleError(response: Result.Error) {
@@ -171,6 +167,17 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
             viewModel.fetchWeatherReport(result?.latitude, result?.longitude)
             viewModel.fetchCityName(result?.latitude, result?.longitude)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.weather_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController()
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

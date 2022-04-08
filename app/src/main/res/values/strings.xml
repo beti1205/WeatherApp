@@ -19,7 +19,7 @@
     <string name="details_humidity_label">Humidity</string>
     <string name="details_visibility_label">Visibility</string>
     <string name="details_wind_speed_label">Wind speed</string>
-    <string name="add_city_label">City</string>
+    <string name="add_city_label">Search for a city</string>
     <string name="city_localization">%s, %s</string>
     <string name="add_city_empty_state_message">Search for a city.</string>
     <string name="add_city_empty_state_no_results">No Results. Please check spelling or try different keyword.</string>

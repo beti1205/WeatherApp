@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.FavouriteCityListItemBinding
 
-class FavouriteCityAdapter : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolder>() {
+class FavouriteCityAdapter(
+    val onItemClicked: (String) -> Unit,
+    val onLongItemClicked: (String) -> Unit
+) : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolder>() {
 
     val data: List<String> = listOf("Warszawa", "Kraków", "Siedlce")
 
@@ -32,8 +35,13 @@ class FavouriteCityAdapter : RecyclerView.Adapter<FavouriteCityAdapter.ViewHolde
         private val binding: FavouriteCityListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(favouriteCity: String){
+        fun bind(favouriteCity: String) {
             binding.favouriteCity.text = favouriteCity
+            binding.favouriteCity.setOnClickListener { onItemClicked(favouriteCity) }
+            binding.favouriteCity.setOnLongClickListener {
+                onLongItemClicked(favouriteCity)
+                true
+            }
         }
     }
 }

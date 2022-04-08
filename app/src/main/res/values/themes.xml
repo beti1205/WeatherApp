@@ -16,6 +16,10 @@
         <!-- Customize your theme here. -->
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_clear_24</item>
+
     </style>
 
     <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">

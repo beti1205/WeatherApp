@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.example.weatherapp.ui.weather.WeatherFragment"
-        android:label="fragment_weather"
+        android:label="Warsaw"
         tools:layout="@layout/weather_fragment" >
 
         <action
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/favouriteCityFragment"
         android:name="com.example.weatherapp.ui.favouritecity.FavouriteCityFragment"
-        android:label="FavouriteCityFragment"
+        android:label="Select city"
         tools:layout="@layout/favourite_city_fragment">
 
         <action
@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/addCityFragment"
         android:name="com.example.weatherapp.ui.addcity.AddCityFragment"
-        android:label="fragment_add_city"
+        android:label="Add city"
         tools:layout="@layout/add_city_fragment" >
 
         <action

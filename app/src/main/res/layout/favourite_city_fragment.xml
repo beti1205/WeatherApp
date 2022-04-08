@@ -8,7 +8,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favourite_city_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/offWhite"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,3 +29,4 @@
         app:srcCompat="@drawable/ic_baseline_add_25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
