@@ -37,7 +37,7 @@ abstract class ReverseGeocodingModule {
     }
 
     @Binds
-    abstract fun bindPlaceByCoordinatesInterface(
+    abstract fun bindFetchPlaceByCoordinatesUseCase(
         fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCaseImpl
     ): FetchPlaceByCoordinatesUseCase
 }

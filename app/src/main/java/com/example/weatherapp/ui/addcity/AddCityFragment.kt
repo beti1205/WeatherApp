@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.AddCityFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +18,24 @@ class AddCityFragment : Fragment(R.layout.add_city_fragment) {
     private var _binding: AddCityFragmentBinding? = null
     private val binding get() = _binding!!
 
+    companion object{
+        const val PLACE = "place"
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = AddCityFragmentBinding.bind(view)
 
-        val addCityAdapter = AddCityAdapter()
+        val navController = findNavController()
+
+        val addCityAdapter = AddCityAdapter(
+            onItemClicked = { place ->
+                viewModel.addFavouriteCityToDatabase(place)
+                navController.previousBackStackEntry?.savedStateHandle?.set(PLACE, place)
+                navController.popBackStack()
+        })
+
         binding.placeList.adapter = addCityAdapter
 
         binding.addCity.editText?.doAfterTextChanged { inputText ->

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.feature.fetchplacebycoorinates.domain.FetchPlaceByCoordinatesUseCase
-import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCase
+import com.example.weatherapp.feature.fetchweather.ui.WeatherReportUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,14 +22,22 @@ class WeatherViewModel @Inject constructor(
     private val fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCase
 ) : ViewModel() {
 
-    private val _weatherReport = MutableLiveData<Result<WeatherReport>>()
-    val weatherReport: LiveData<Result<WeatherReport>> = _weatherReport
+    private val _weatherReport = MutableLiveData<Result<WeatherReportUI>?>()
+    val weatherReport: LiveData<Result<WeatherReportUI>?> = _weatherReport
 
-    private val _cityName = MutableLiveData<Result<String?>>()
-    val cityName: LiveData<Result<String?>> = _cityName
+    private val _cityName = MutableLiveData<String?>()
+    val cityName: LiveData<String?> = _cityName
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun fetchWeatherReport(latitude: Double? = null, longitude: Double? = null) {
+    fun fetchWeatherReport(
+        latitude: Double? = null,
+        longitude: Double? = null,
+        force: Boolean = false
+    ) {
+        if (!force && _weatherReport.value != null) {
+            return
+        }
+
         viewModelScope.launch {
             _weatherReport.value = fetchWeatherUseCase(
                 latitude = latitude ?: latitudeWarsaw,
@@ -40,12 +48,24 @@ class WeatherViewModel @Inject constructor(
 
     @SuppressLint("NullSafeMutableLiveData")
     fun fetchCityName(latitude: Double? = null, longitude: Double? = null) {
+        if (_cityName.value != null) {
+            return
+        }
+
         viewModelScope.launch {
-            _cityName.value = fetchPlaceByCoordinatesUseCase(
+            val result = fetchPlaceByCoordinatesUseCase(
                 latitude = latitude ?: latitudeWarsaw,
                 longitude = longitude ?: longitudeWarsaw
             )
+            _cityName.value = when(result){
+                is Result.Error -> null
+                is Result.Success -> result.data
+            }
         }
+    }
+
+    fun setCityName(name: String?){
+        _cityName.value = name
     }
 }
 

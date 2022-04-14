@@ -1,22 +1,29 @@
 package com.example.weatherapp.utils
 
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
-private val shortTimeFormat = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
-private val timeFormat = SimpleDateFormat.getTimeInstance()
-private val dateFormat = SimpleDateFormat.getDateInstance()
-private val dayNameFormat = SimpleDateFormat("E", Locale.getDefault())
+private val shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+private val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
+private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+private val dayNameFormatter = DateTimeFormatter.ofPattern("E")
 
+val ZonedDateTime.formattedDate: String
+    get() = format(dateFormatter)
 
-val Date.formattedDate: String
-    get() = dateFormat.format(this)
+val ZonedDateTime.formattedTime: String
+    get() = format(timeFormatter)
 
-val Date.formattedTime: String
-    get() = timeFormat.format(this)
+val ZonedDateTime.formattedDayName: String
+    get() = format(dayNameFormatter)
 
-val Date.formattedDayName: String
-    get() = dayNameFormat.format(this)
+val ZonedDateTime.formattedTimeShort: String
+    get() = format(shortTimeFormatter)
 
-val Date.formattedTimeShort: String
-    get() = shortTimeFormat.format(this)
+fun Long.toZoneDateTime(timeZone: String): ZonedDateTime {
+    return Instant.ofEpochSecond(this)
+        .atZone(ZoneId.of(timeZone))
+}

@@ -37,7 +37,7 @@ abstract class DirectGeocodingModule {
     }
 
     @Binds
-    abstract fun bindPlaceByNameInterface(
+    abstract fun bindFetchPlaceByNameUseCase(
         fetchPlaceByNameUseCase: FetchPlaceByNameUseCaseImpl
     ): FetchPlaceByNameUseCase
 }

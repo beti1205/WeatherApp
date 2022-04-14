@@ -18,14 +18,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.onNavDestinationSelected
 import com.example.weatherapp.R
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.databinding.WeatherFragmentBinding
+import com.example.weatherapp.feature.fetchplacebyname.ui.PlaceUI
+import com.example.weatherapp.feature.fetchweather.ui.WeatherReportUI
+import com.example.weatherapp.feature.storefavouritecities.data.FavouriteCity
+import com.example.weatherapp.ui.favouritecity.FavouriteCityFragment
 import com.example.weatherapp.utils.setWeatherImage
-import com.example.weatherapp.feature.fetchweather.data.WeatherReport
-import com.example.weatherapp.utils.formattedTime
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,16 +60,35 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
             }
         }
 
-        viewModel.cityName.observe(viewLifecycleOwner) { response ->
-            (activity as? AppCompatActivity)?.supportActionBar?.title = when (response) {
-                is Result.Error -> getString(R.string.fetch_city_name_error)
-                is Result.Success -> response.data
-            }
+        viewModel.cityName.observe(viewLifecycleOwner) { cityName ->
+            val actionBar = (activity as? AppCompatActivity)?.supportActionBar
+            actionBar?.title = cityName ?: getString(R.string.fetch_city_name_error)
         }
+
+        val navController = findNavController();
+        val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+        savedStateHandle?.getLiveData<FavouriteCity>(FavouriteCityFragment.CITY_LOCATION)
+            ?.observe(viewLifecycleOwner) { result ->
+                viewModel.fetchWeatherReport(
+                    latitude = result.latitude,
+                    longitude = result.longitude,
+                    force = true
+                )
+                viewModel.setCityName(result.name)
+            }
+
+        savedStateHandle?.getLiveData<PlaceUI>(FavouriteCityFragment.PLACE)
+            ?.observe(viewLifecycleOwner) { result ->
+                viewModel.fetchWeatherReport(
+                    latitude = result.latitude,
+                    longitude = result.longitude,
+                    force = true
+                )
+                viewModel.setCityName(result.properties.name)
+            }
 
         val requestPermissionLauncher = createActivityResultLauncher()
         checkPermission(requestPermissionLauncher)
-
     }
 
     private fun handleError(response: Result.Error) {
@@ -78,7 +98,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
     }
 
     private fun handleSuccess(
-        response: Result.Success<WeatherReport>,
+        response: Result.Success<WeatherReportUI>,
         dailyAdapter: DailyWeatherAdapter,
         hourlyAdapter: HourlyWeatherAdapter
     ) {
@@ -89,7 +109,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         }
     }
 
-    private fun WeatherReport.bindCurrentWeather() {
+    private fun WeatherReportUI.bindCurrentWeather() {
         val iconId = current.weather.first().icon
         with(binding) {
             todayImage.setWeatherImage(iconId)
@@ -109,8 +129,8 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
             )
 
             with(weatherDetailsContent) {
-                sunriseTime.text = current.sunrise.formattedTime
-                sunsetTime.text = current.sunset.formattedTime
+                sunriseTime.text = current.sunrise
+                sunsetTime.text = current.sunset
                 currentHumidity.text = getString(
                     R.string.humidity,
                     current.humidity.toString()

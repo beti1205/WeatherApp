@@ -37,7 +37,7 @@ abstract class WeatherModule {
     }
 
     @Binds
-    abstract fun bindWeatherInterface(
+    abstract fun bindFetchWeatherUseCase(
         fetchWeatherUseCase: FetchWeatherUseCaseImpl
     ): FetchWeatherUseCase
 }

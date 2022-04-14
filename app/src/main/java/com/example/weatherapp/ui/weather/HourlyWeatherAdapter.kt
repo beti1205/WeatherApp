@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.HourlyWeatherListItemBinding
 import com.example.weatherapp.feature.fetchweather.data.HourlyWeather
+import com.example.weatherapp.feature.fetchweather.ui.HourlyWeatherUI
 import com.example.weatherapp.utils.setWeatherImage
 import com.example.weatherapp.utils.formattedTimeShort
 
-class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.ViewHolder>(
+class HourlyWeatherAdapter : ListAdapter<HourlyWeatherUI, HourlyWeatherAdapter.ViewHolder>(
     DiffCallback
 ) {
 
@@ -29,15 +30,14 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
         holder.bind(hourlyWeather)
     }
 
-
     inner class ViewHolder(
         private val binding: HourlyWeatherListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(hourlyWeather: HourlyWeather) {
+        fun bind(hourlyWeather: HourlyWeatherUI) {
             val iconId = hourlyWeather.weather.first().icon
             binding.hourlyWeatherIcon.setWeatherImage(iconId)
-            binding.time.text = hourlyWeather.time.formattedTimeShort
+            binding.time.text = hourlyWeather.time
             binding.hourlyTemperature.text = binding.hourlyTemperature.context.getString(
                 R.string.temperature,
                 hourlyWeather.temp.toInt().toString()
@@ -45,12 +45,12 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeather, HourlyWeatherAdapter.Vie
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<HourlyWeather>() {
-        override fun areItemsTheSame(oldItem: HourlyWeather, newItem: HourlyWeather): Boolean {
-            return oldItem.time == newItem.time
+    companion object DiffCallback : DiffUtil.ItemCallback<HourlyWeatherUI>() {
+        override fun areItemsTheSame(oldItem: HourlyWeatherUI, newItem: HourlyWeatherUI): Boolean {
+            return oldItem.timeStamp == newItem.timeStamp
         }
 
-        override fun areContentsTheSame(oldItem: HourlyWeather, newItem: HourlyWeather): Boolean {
+        override fun areContentsTheSame(oldItem: HourlyWeatherUI, newItem: HourlyWeatherUI): Boolean {
             return oldItem == newItem
         }
 

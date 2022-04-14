@@ -1,34 +1,57 @@
 package com.example.weatherapp.ui.favouritecity
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FavouriteCityFragmentBinding
+import com.example.weatherapp.feature.fetchplacebyname.ui.PlaceUI
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
 
+    private val viewModel: FavouriteCityViewModel by viewModels()
     private var _binding: FavouriteCityFragmentBinding? = null
     private val binding get() = _binding!!
+
+    companion object{
+        const val PLACE = "place"
+        const val CITY_LOCATION = "cityLocation"
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FavouriteCityFragmentBinding.bind(view)
 
+        val navController = findNavController()
+        val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+
+        savedStateHandle?.getLiveData<PlaceUI>(PLACE)?.observe(viewLifecycleOwner) { result ->
+            navController.previousBackStackEntry?.savedStateHandle?.set(PLACE, result)
+            navController.popBackStack()
+        }
+
         val favouriteCityAdapter = FavouriteCityAdapter(
             onItemClicked = { city ->
-                // TODO handle item click
+                navController.previousBackStackEntry?.savedStateHandle?.set(CITY_LOCATION, city)
+                navController.popBackStack()
             },
             onLongItemClicked = { city ->
-                val actionMode = (activity as? AppCompatActivity)?.startSupportActionMode(callback)
-                actionMode?.title = city
+                val activity = activity as? AppCompatActivity
+                val actionMode = activity?.startSupportActionMode(
+                    CityActionMode(
+                        onDelete = {
+                            viewModel.deleteFavouriteCityFromDatabase(city)
+                        }
+                    )
+                )
+                actionMode?.title = city.name
             }
         )
         binding.favouriteCityList.adapter = favouriteCityAdapter
@@ -38,38 +61,15 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
                 FavouriteCityFragmentDirections.actionFavouriteCityFragmentToAddCityFragment()
             )
         }
+
+        viewModel.cities.observe(viewLifecycleOwner) { cities ->
+            favouriteCityAdapter.submitList(cities)
+        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    val callback = object : ActionMode.Callback {
-
-        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            (activity as? AppCompatActivity)?.menuInflater?.inflate(
-                R.menu.contextual_action_bar,
-                menu
-            )
-            return true
-        }
-
-        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            return false
-        }
-
-        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-            return when (item?.itemId) {
-                R.id.delete -> {
-                    // Handle delete icon press
-                    true
-                }
-                else -> false
-            }
-        }
-
-        override fun onDestroyActionMode(mode: ActionMode?) {
-        }
     }
 }

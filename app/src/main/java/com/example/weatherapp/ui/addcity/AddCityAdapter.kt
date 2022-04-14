@@ -3,14 +3,16 @@ package com.example.weatherapp.ui.addcity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.AddCityListItemBinding
-import com.example.weatherapp.feature.fetchplacebyname.data.Place
+import com.example.weatherapp.feature.fetchplacebyname.ui.PlaceUI
 
 
-class AddCityAdapter : ListAdapter<Place, AddCityAdapter.ViewHolder>(DiffCallback) {
+class AddCityAdapter(
+    val onItemClicked: (PlaceUI) -> Unit
+) : ListAdapter<PlaceUI, AddCityAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,10 +35,11 @@ class AddCityAdapter : ListAdapter<Place, AddCityAdapter.ViewHolder>(DiffCallbac
         private val binding: AddCityListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(place: Place) {
+        fun bind(place: PlaceUI) {
             with(binding) {
                 val context = country.context
 
+                root.setOnClickListener { onItemClicked(place) }
                 city.text = place.properties.name
                 country.text = when {
                     place.properties.county != null -> context.getString(
@@ -50,13 +53,13 @@ class AddCityAdapter : ListAdapter<Place, AddCityAdapter.ViewHolder>(DiffCallbac
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Place>() {
-        override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
-            return oldItem == newItem
+    companion object DiffCallback : DiffUtil.ItemCallback<PlaceUI>() {
+        override fun areItemsTheSame(oldItem: PlaceUI, newItem: PlaceUI): Boolean {
+            return oldItem.properties.id == newItem.properties.id
         }
 
-        override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
-            return oldItem.geometry == newItem.geometry
+        override fun areContentsTheSame(oldItem: PlaceUI, newItem: PlaceUI): Boolean {
+            return oldItem == newItem
         }
     }
 }

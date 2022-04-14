@@ -4,11 +4,10 @@ import com.squareup.moshi.Json
 import java.util.*
 
 data class CurrentWeather(
-    @Json(name = "dt") val currentTime: Date,
     val temp: Double,
     val weather: List<Weather>,
-    val sunrise: Date,
-    val sunset: Date,
+    val sunrise: Long,
+    val sunset: Long,
     val pressure: Int,
     val humidity: Int,
     val visibility: Int,

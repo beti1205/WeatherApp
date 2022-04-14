@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DailyWeatherListItemBinding
-import com.example.weatherapp.feature.fetchweather.data.DailyWeather
+import com.example.weatherapp.feature.fetchweather.ui.DailyWeatherUI
 import com.example.weatherapp.utils.setWeatherImage
-import com.example.weatherapp.utils.formattedDate
-import com.example.weatherapp.utils.formattedDayName
 
 class DailyWeatherAdapter :
-    ListAdapter<DailyWeather, DailyWeatherAdapter.ViewHolder>(DiffCallback) {
+    ListAdapter<DailyWeatherUI, DailyWeatherAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DailyWeatherListItemBinding.inflate(
@@ -33,11 +31,11 @@ class DailyWeatherAdapter :
         private val binding: DailyWeatherListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(dailyWeather: DailyWeather) {
+        fun bind(dailyWeather: DailyWeatherUI) {
             val iconId = dailyWeather.weather.first().icon
             binding.dailyWeatherIcon.setWeatherImage(iconId)
-            binding.date.text = dailyWeather.time.formattedDate
-            binding.day.text = dailyWeather.time.formattedDayName
+            binding.date.text = dailyWeather.date
+            binding.day.text = dailyWeather.day
             binding.dailyWeatherDescription.text = dailyWeather.weather.first().description
             binding.dailyTemperature.text = binding.dailyTemperature.context.getString(
                 R.string.temperature,
@@ -47,13 +45,13 @@ class DailyWeatherAdapter :
 
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<DailyWeather>() {
-        override fun areItemsTheSame(oldItem: DailyWeather, newItem: DailyWeather): Boolean {
-            return oldItem == newItem
+    companion object DiffCallback : DiffUtil.ItemCallback<DailyWeatherUI>() {
+        override fun areItemsTheSame(oldItem: DailyWeatherUI, newItem: DailyWeatherUI): Boolean {
+            return oldItem.timeStamp == newItem.timeStamp
         }
 
-        override fun areContentsTheSame(oldItem: DailyWeather, newItem: DailyWeather): Boolean {
-            return oldItem.time == newItem.time
+        override fun areContentsTheSame(oldItem: DailyWeatherUI, newItem: DailyWeatherUI): Boolean {
+            return oldItem == newItem
         }
 
     }
