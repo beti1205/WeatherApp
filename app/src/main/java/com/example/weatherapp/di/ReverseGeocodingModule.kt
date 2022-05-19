@@ -1,6 +1,8 @@
 package com.example.weatherapp.di
 
 import com.example.weatherapp.common.AppConfig
+import com.example.weatherapp.common.LocaleProvider
+import com.example.weatherapp.common.LocaleProviderImpl
 import com.example.weatherapp.feature.fetchplacebycoorinates.data.ReverseGeocodingService
 import com.example.weatherapp.feature.fetchplacebycoorinates.domain.FetchPlaceByCoordinatesUseCase
 import com.example.weatherapp.feature.fetchplacebycoorinates.domain.FetchPlaceByCoordinatesUseCaseImpl
@@ -40,4 +42,9 @@ abstract class ReverseGeocodingModule {
     abstract fun bindFetchPlaceByCoordinatesUseCase(
         fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCaseImpl
     ): FetchPlaceByCoordinatesUseCase
+
+    @Binds
+    abstract fun bindLocaleProvider(
+        localeProvider: LocaleProviderImpl
+    ): LocaleProvider
 }

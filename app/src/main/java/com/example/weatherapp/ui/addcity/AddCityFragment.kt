@@ -18,7 +18,7 @@ class AddCityFragment : Fragment(R.layout.add_city_fragment) {
     private var _binding: AddCityFragmentBinding? = null
     private val binding get() = _binding!!
 
-    companion object{
+    companion object {
         const val PLACE = "place"
     }
 
@@ -34,17 +34,17 @@ class AddCityFragment : Fragment(R.layout.add_city_fragment) {
                 viewModel.addFavouriteCityToDatabase(place)
                 navController.previousBackStackEntry?.savedStateHandle?.set(PLACE, place)
                 navController.popBackStack()
-        })
+            }
+        )
 
         binding.placeList.adapter = addCityAdapter
-
         binding.addCity.editText?.doAfterTextChanged { inputText ->
             viewModel.onCityNameChanged(inputText.toString())
         }
 
         viewModel.place.observe(viewLifecycleOwner) { response ->
             addCityAdapter.submitList(response)
-            }
+        }
 
         viewModel.emptyState.observe(viewLifecycleOwner) { emptyState ->
             setEmptyStateVisibility(emptyState)
@@ -57,7 +57,7 @@ class AddCityFragment : Fragment(R.layout.add_city_fragment) {
         binding.emptyState.isVisible = isEmptyStateVisible
         binding.emptyStateMessage.isVisible = isEmptyStateVisible
 
-        binding.emptyStateMessage.text = when(emptyStateType){
+        binding.emptyStateMessage.text = when (emptyStateType) {
             EmptyStateType.ERROR -> getString(R.string.add_city_empty_state_error)
             EmptyStateType.NO_RESULT -> getString(R.string.add_city_empty_state_no_results)
             EmptyStateType.SEARCH_CITY -> getString(R.string.add_city_empty_state_message)

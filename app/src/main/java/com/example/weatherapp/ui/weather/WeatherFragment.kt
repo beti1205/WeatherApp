@@ -65,7 +65,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
             actionBar?.title = cityName ?: getString(R.string.fetch_city_name_error)
         }
 
-        val navController = findNavController();
+        val navController = findNavController()
         val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<FavouriteCity>(FavouriteCityFragment.CITY_LOCATION)
             ?.observe(viewLifecycleOwner) { result ->

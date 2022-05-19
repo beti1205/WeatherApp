@@ -15,7 +15,5 @@ class DeleteFavouriteCityUseCaseImpl @Inject constructor(
 
     override suspend fun invoke(
         favouriteCity: FavouriteCity
-    ): Unit = repository.deleteCity(
-        favouriteCity
-    )
+    ): Unit = repository.deleteCity(favouriteCity)
 }

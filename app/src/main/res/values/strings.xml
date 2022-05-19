@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="page_title">Warszawa</string>
     <string name="city_change">City change</string>
     <string name="temperature">%s ℃</string>
     <string name="max_temperature">Max:\n%s ℃</string>
@@ -25,4 +24,5 @@
     <string name="add_city_empty_state_no_results">No Results. Please check spelling or try different keyword.</string>
     <string name="add_city_empty_state_error">Oops. We encountered an unexpected problem. </string>
     <string name="fetch_city_name_error">No city name found</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -61,7 +61,7 @@ class AddCityViewModel @Inject constructor(
         }
     }
 
-    fun addFavouriteCityToDatabase(place: PlaceUI){
+    fun addFavouriteCityToDatabase(place: PlaceUI) {
         viewModelScope.launch {
             addFavouriteCityUseCase(
                 AddFavouriteCityUseCaseParams(

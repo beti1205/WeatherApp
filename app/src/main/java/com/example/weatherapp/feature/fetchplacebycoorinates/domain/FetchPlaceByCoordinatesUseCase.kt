@@ -1,12 +1,10 @@
 package com.example.weatherapp.feature.fetchplacebycoorinates.domain
 
-import android.content.Context
+import com.example.weatherapp.common.AppConfig
+import com.example.weatherapp.common.LocaleProvider
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.common.performRequest
-import com.example.weatherapp.common.AppConfig
 import com.example.weatherapp.feature.fetchplacebycoorinates.data.ReverseGeocodingService
-import com.example.weatherapp.utils.getCurrentLocale
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 
@@ -20,12 +18,10 @@ interface FetchPlaceByCoordinatesUseCase {
 }
 
 class FetchPlaceByCoordinatesUseCaseImpl @Inject constructor(
-    @ApplicationContext context: Context,
+    private val localeProvider: LocaleProvider,
     private val geocodingApiService: ReverseGeocodingService,
     private val appConfig: AppConfig
 ) : FetchPlaceByCoordinatesUseCase {
-
-    private val locale = context.getCurrentLocale()
 
     override suspend fun invoke(
         latitude: Double,
@@ -39,7 +35,7 @@ class FetchPlaceByCoordinatesUseCaseImpl @Inject constructor(
                 appConfig.apiKey
             )
             val localNames = results.first().localNames
-            localNames[locale.language] ?: localNames[Locale.ENGLISH.language]
+            localNames[localeProvider.getLocale().language] ?: localNames[Locale.ENGLISH.language]
         }
     }
 }

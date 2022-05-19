@@ -23,13 +23,12 @@ class FetchPlaceByNameUseCaseImpl @Inject constructor(
         cityName: String
     ): Result<List<PlaceUI>> {
         val result = performRequest {
-            directGeocodingService.getPlaceByName(
-                cityName
-            )
+            directGeocodingService.getPlaceByName(cityName)
         }
         return when (result) {
             is Result.Success -> Result.Success(
-                result.data.features.toPlaceUI()
+                result.data.features
+                    .toPlaceUI()
                     .filter { it.properties.type == PlaceType.CITY }
             )
             is Result.Error -> result

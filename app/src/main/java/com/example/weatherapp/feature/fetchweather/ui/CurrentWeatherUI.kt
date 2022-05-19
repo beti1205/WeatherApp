@@ -5,8 +5,6 @@ import com.example.weatherapp.feature.fetchweather.data.Weather
 import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.utils.formattedTime
 import com.example.weatherapp.utils.toZoneDateTime
-import java.time.Instant
-import java.time.ZoneId
 
 data class CurrentWeatherUI(
     val temp: Double,

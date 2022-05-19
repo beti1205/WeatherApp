@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class FavouriteCityRepositoryModule {
+abstract class FavouriteCityModule {
 
     @Binds
     abstract fun bindFavouriteCityRepository(

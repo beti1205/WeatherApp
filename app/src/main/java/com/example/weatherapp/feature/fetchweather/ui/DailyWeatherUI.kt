@@ -6,11 +6,7 @@ import com.example.weatherapp.feature.fetchweather.data.Weather
 import com.example.weatherapp.feature.fetchweather.data.WeatherReport
 import com.example.weatherapp.utils.formattedDate
 import com.example.weatherapp.utils.formattedDayName
-import com.example.weatherapp.utils.formattedTimeShort
 import com.example.weatherapp.utils.toZoneDateTime
-import java.time.Instant
-import java.time.ZoneId
-import java.util.*
 
 data class DailyWeatherUI(
     val timeStamp: Long,

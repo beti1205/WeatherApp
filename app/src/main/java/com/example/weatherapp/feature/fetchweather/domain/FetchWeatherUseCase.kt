@@ -25,18 +25,18 @@ class FetchWeatherUseCaseImpl @Inject constructor(
         latitude: Double,
         longitude: Double
     ): Result<WeatherReportUI> {
-         val result = performRequest {
+        val result = performRequest {
             apiService.getWeather(
-                latitude.toString(),
-                longitude.toString(),
-                appConfig.apiKey,
-                appConfig.units
+                latitude = latitude.toString(),
+                longitude = longitude.toString(),
+                apiKey = appConfig.apiKey,
+                units = appConfig.units
             )
         }
-        return when(result){
+        return when (result) {
             is Result.Error -> result
             is Result.Success -> Result.Success(
-              result.data.toWeatherReportUI()
+                result.data.toWeatherReportUI()
             )
         }
     }

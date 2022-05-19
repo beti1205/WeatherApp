@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavouriteCityViewModel @Inject constructor(
     private val deleteFavouriteCityUseCase: DeleteFavouriteCityUseCase,
-    private val fetchFavouriteCitiesUseCase: FetchFavouriteCitiesUseCase
+    fetchFavouriteCitiesUseCase: FetchFavouriteCitiesUseCase
 ) : ViewModel() {
 
     val cities: LiveData<List<FavouriteCity>> = fetchFavouriteCitiesUseCase().asLiveData()

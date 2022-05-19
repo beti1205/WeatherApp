@@ -9,7 +9,6 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.AddCityListItemBinding
 import com.example.weatherapp.feature.fetchplacebyname.ui.PlaceUI
 
-
 class AddCityAdapter(
     val onItemClicked: (PlaceUI) -> Unit
 ) : ListAdapter<PlaceUI, AddCityAdapter.ViewHolder>(DiffCallback) {
@@ -38,7 +37,6 @@ class AddCityAdapter(
         fun bind(place: PlaceUI) {
             with(binding) {
                 val context = country.context
-
                 root.setOnClickListener { onItemClicked(place) }
                 city.text = place.properties.name
                 country.text = when {
