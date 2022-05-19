@@ -28,6 +28,9 @@ class WeatherViewModel @Inject constructor(
     private val _cityName = MutableLiveData<String?>()
     val cityName: LiveData<String?> = _cityName
 
+    private val _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     @SuppressLint("NullSafeMutableLiveData")
     fun fetchWeatherReport(
         latitude: Double? = null,
@@ -43,6 +46,7 @@ class WeatherViewModel @Inject constructor(
                 latitude = latitude ?: latitudeWarsaw,
                 longitude = longitude ?: longitudeWarsaw
             )
+            _isLoading.value = false
         }
     }
 

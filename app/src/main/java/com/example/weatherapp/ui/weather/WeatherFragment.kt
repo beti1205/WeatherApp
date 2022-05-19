@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -66,6 +67,11 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         }
 
         val navController = findNavController()
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressIndicator.isVisible = isLoading
+            binding.contentScrollView.isVisible = !isLoading
+        }
+
         val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<FavouriteCity>(FavouriteCityFragment.CITY_LOCATION)
             ?.observe(viewLifecycleOwner) { result ->
