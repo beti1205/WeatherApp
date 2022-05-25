@@ -34,6 +34,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
             <TextView
