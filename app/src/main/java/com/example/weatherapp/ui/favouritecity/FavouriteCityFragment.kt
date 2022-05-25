@@ -33,6 +33,7 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
         val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
 
         savedStateHandle?.getLiveData<PlaceUI>(PLACE)?.observe(viewLifecycleOwner) { result ->
+            savedStateHandle.remove<PlaceUI>(PLACE)
             navController.previousBackStackEntry?.savedStateHandle?.set(PLACE, result)
             navController.popBackStack()
         }

@@ -75,6 +75,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
         savedStateHandle?.getLiveData<FavouriteCity>(FavouriteCityFragment.CITY_LOCATION)
             ?.observe(viewLifecycleOwner) { result ->
+                savedStateHandle.remove<FavouriteCity>(FavouriteCityFragment.CITY_LOCATION)
                 viewModel.fetchWeatherReport(
                     latitude = result.latitude,
                     longitude = result.longitude,
@@ -85,6 +86,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
 
         savedStateHandle?.getLiveData<PlaceUI>(FavouriteCityFragment.PLACE)
             ?.observe(viewLifecycleOwner) { result ->
+                savedStateHandle.remove<PlaceUI>(FavouriteCityFragment.PLACE)
                 viewModel.fetchWeatherReport(
                     latitude = result.latitude,
                     longitude = result.longitude,
