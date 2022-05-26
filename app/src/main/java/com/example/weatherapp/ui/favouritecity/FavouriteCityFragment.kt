@@ -3,6 +3,7 @@ package com.example.weatherapp.ui.favouritecity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -18,6 +19,7 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
     private val viewModel: FavouriteCityViewModel by viewModels()
     private var _binding: FavouriteCityFragmentBinding? = null
     private val binding get() = _binding!!
+    private var actionMode: ActionMode? = null
 
     companion object{
         const val PLACE = "place"
@@ -45,7 +47,7 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
             },
             onLongItemClicked = { city ->
                 val activity = activity as? AppCompatActivity
-                val actionMode = activity?.startSupportActionMode(
+                actionMode = activity?.startSupportActionMode(
                     CityActionMode(
                         onDelete = {
                             viewModel.deleteFavouriteCityFromDatabase(city)
@@ -66,11 +68,12 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
         viewModel.cities.observe(viewLifecycleOwner) { cities ->
             favouriteCityAdapter.submitList(cities)
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        actionMode?.finish()
+        actionMode = null
     }
 }
