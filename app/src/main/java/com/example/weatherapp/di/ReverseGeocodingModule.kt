@@ -28,14 +28,12 @@ abstract class ReverseGeocodingModule {
             client: OkHttpClient,
             moshi: Moshi,
             appConfig: AppConfig
-        ): ReverseGeocodingService {
-            return Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .baseUrl(appConfig.reverseGeocodingBaseUrl)
-                .client(client)
-                .build()
-                .create()
-        }
+        ): ReverseGeocodingService = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .baseUrl(appConfig.reverseGeocodingBaseUrl)
+            .client(client)
+            .build()
+            .create()
     }
 
     @Binds

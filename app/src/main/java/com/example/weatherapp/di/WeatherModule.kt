@@ -26,14 +26,12 @@ abstract class WeatherModule {
             client: OkHttpClient,
             moshi: Moshi,
             appConfig: AppConfig
-        ): WeatherApiService {
-            return Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .baseUrl(appConfig.weatherBaseUrl)
-                .client(client)
-                .build()
-                .create()
-        }
+        ): WeatherApiService = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .baseUrl(appConfig.weatherBaseUrl)
+            .client(client)
+            .build()
+            .create()
     }
 
     @Binds

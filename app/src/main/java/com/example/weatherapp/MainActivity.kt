@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.weatherapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

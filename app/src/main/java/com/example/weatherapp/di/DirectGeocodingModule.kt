@@ -26,14 +26,12 @@ abstract class DirectGeocodingModule {
             client: OkHttpClient,
             moshi: Moshi,
             appConfig: AppConfig
-        ): DirectGeocodingService {
-            return Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .baseUrl(appConfig.geocodingUrl)
-                .client(client)
-                .build()
-                .create()
-        }
+        ): DirectGeocodingService = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .baseUrl(appConfig.geocodingUrl)
+            .client(client)
+            .build()
+            .create()
     }
 
     @Binds

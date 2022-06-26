@@ -13,7 +13,5 @@ interface LocaleProvider {
 class LocaleProviderImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : LocaleProvider {
-    override fun getLocale(): Locale {
-        return context.getCurrentLocale()
-    }
+    override fun getLocale(): Locale = context.getCurrentLocale()
 }

@@ -18,16 +18,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 object CoreModule {
 
     @Provides
-    fun provideAppConfig(): AppConfig {
-        return AppConfig(
-            weatherBaseUrl = "https://api.openweathermap.org/data/2.5/",
-            reverseGeocodingBaseUrl = "https://api.openweathermap.org/geo/1.0/",
-            geocodingUrl = "https://photon.komoot.io/",
-            apiKey = "5fe4e1715cf27ea3002f0c66ebda3d51",
-            limit = 200,
-            units = "metric"
-        )
-    }
+    fun provideAppConfig(): AppConfig = AppConfig(
+        weatherBaseUrl = "https://api.openweathermap.org/data/2.5/",
+        reverseGeocodingBaseUrl = "https://api.openweathermap.org/geo/1.0/",
+        geocodingUrl = "https://photon.komoot.io/",
+        apiKey = "5fe4e1715cf27ea3002f0c66ebda3d51",
+        limit = 200,
+        units = "metric"
+    )
 
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
