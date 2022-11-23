@@ -16,7 +16,7 @@ interface FetchPlaceByNameUseCase {
 }
 
 class FetchPlaceByNameUseCaseImpl @Inject constructor(
-    private val directGeocodingService: DirectGeocodingService,
+    private val directGeocodingService: DirectGeocodingService
 ) : FetchPlaceByNameUseCase {
 
     override suspend fun invoke(
@@ -35,4 +35,3 @@ class FetchPlaceByNameUseCaseImpl @Inject constructor(
         }
     }
 }
-

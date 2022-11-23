@@ -16,6 +16,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val MIN_CITY_NAME_LENGTH = 3
+private const val SEARCH_DELAY = 600L
 
 @HiltViewModel
 class AddCityViewModel @Inject constructor(
@@ -35,14 +37,14 @@ class AddCityViewModel @Inject constructor(
     fun onCityNameChanged(cityName: String) {
         fetchJob?.cancel()
 
-        val isBelowMinimumLength = cityName.length < 3
+        val isBelowMinimumLength = cityName.length < MIN_CITY_NAME_LENGTH
         if (isBelowMinimumLength) {
             _emptyState.value = EmptyStateType.SEARCH_CITY
             return
         }
 
         fetchJob = viewModelScope.launch {
-            delay(600)
+            delay(SEARCH_DELAY)
             val result = fetchPlaceByNameUseCase(
                 cityName = cityName
             )

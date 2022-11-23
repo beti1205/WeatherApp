@@ -10,9 +10,9 @@ data class PlaceUI(
     val latitude: Double,
     val longitude: Double,
     val properties: Properties
-): Parcelable
+) : Parcelable
 
-fun List<Place>.toPlaceUI(): List<PlaceUI>{
+fun List<Place>.toPlaceUI(): List<PlaceUI> {
     return map { place ->
         PlaceUI(
             latitude = place.geometry.coordinates[1],

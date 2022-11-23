@@ -48,9 +48,11 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherUI, HourlyWeatherAdapter.V
             return oldItem.timeStamp == newItem.timeStamp
         }
 
-        override fun areContentsTheSame(oldItem: HourlyWeatherUI, newItem: HourlyWeatherUI): Boolean {
+        override fun areContentsTheSame(
+            oldItem: HourlyWeatherUI,
+            newItem: HourlyWeatherUI
+        ): Boolean {
             return oldItem == newItem
         }
-
     }
 }

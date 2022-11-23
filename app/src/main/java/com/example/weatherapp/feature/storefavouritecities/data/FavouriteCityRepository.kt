@@ -21,7 +21,7 @@ class FavouriteCityRepositoryImpl @Inject constructor(
     }
 
     override fun getCities(): Flow<List<FavouriteCity>> {
-       return favouriteCityDao.getAllFavouriteCities()
+        return favouriteCityDao.getAllFavouriteCities()
     }
 
     override suspend fun deleteCity(favouriteCity: FavouriteCity) {

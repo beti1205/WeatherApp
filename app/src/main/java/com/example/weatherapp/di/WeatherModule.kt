@@ -1,11 +1,11 @@
 package com.example.weatherapp.di
 
+import com.example.weatherapp.common.AppConfig
 import com.example.weatherapp.feature.fetchweather.data.WeatherApiService
 import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCase
 import com.example.weatherapp.feature.fetchweather.domain.FetchWeatherUseCaseImpl
 import com.squareup.moshi.Moshi
 import dagger.Binds
-import com.example.weatherapp.common.AppConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class WeatherModule {
+interface WeatherModule {
 
     companion object {
 
@@ -35,7 +35,7 @@ abstract class WeatherModule {
     }
 
     @Binds
-    abstract fun bindFetchWeatherUseCase(
+    fun bindFetchWeatherUseCase(
         fetchWeatherUseCase: FetchWeatherUseCaseImpl
     ): FetchWeatherUseCase
 }

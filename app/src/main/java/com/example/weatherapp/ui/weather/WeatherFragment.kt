@@ -58,6 +58,7 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
             when (response) {
                 is Result.Success -> handleSuccess(response, dailyAdapter, hourlyAdapter)
                 is Result.Error -> handleError(response)
+                else -> {}
             }
         }
 

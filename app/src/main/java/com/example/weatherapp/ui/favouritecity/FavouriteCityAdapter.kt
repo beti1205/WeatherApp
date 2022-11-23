@@ -13,7 +13,6 @@ class FavouriteCityAdapter(
     val onLongItemClicked: (FavouriteCity) -> Unit
 ) : ListAdapter<FavouriteCity, FavouriteCityAdapter.ViewHolder>(DiffCallback) {
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,7 +29,6 @@ class FavouriteCityAdapter(
         val favouriteCity = getItem(position)
         viewHolder.bind(favouriteCity)
     }
-
 
     inner class ViewHolder(
         private val binding: FavouriteCityListItemBinding
@@ -56,4 +54,3 @@ class FavouriteCityAdapter(
         }
     }
 }
-

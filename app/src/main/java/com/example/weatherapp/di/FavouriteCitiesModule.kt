@@ -4,7 +4,12 @@ import com.example.weatherapp.common.Database
 import com.example.weatherapp.feature.storefavouritecities.data.FavouriteCityDao
 import com.example.weatherapp.feature.storefavouritecities.data.FavouriteCityRepository
 import com.example.weatherapp.feature.storefavouritecities.data.FavouriteCityRepositoryImpl
-import com.example.weatherapp.feature.storefavouritecities.domain.*
+import com.example.weatherapp.feature.storefavouritecities.domain.AddFavouriteCityUseCase
+import com.example.weatherapp.feature.storefavouritecities.domain.AddFavouriteCityUseCaseImpl
+import com.example.weatherapp.feature.storefavouritecities.domain.DeleteFavouriteCityUseCase
+import com.example.weatherapp.feature.storefavouritecities.domain.DeleteFavouriteCityUseCaseImpl
+import com.example.weatherapp.feature.storefavouritecities.domain.FetchFavouriteCitiesUseCase
+import com.example.weatherapp.feature.storefavouritecities.domain.FetchFavouriteCitiesUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -13,7 +18,7 @@ import dagger.hilt.components.SingletonComponent
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class FavouriteCitiesModule {
+interface FavouriteCitiesModule {
 
     companion object {
 
@@ -23,22 +28,22 @@ abstract class FavouriteCitiesModule {
     }
 
     @Binds
-    abstract fun bindFavouriteCityRepository(
+    fun bindFavouriteCityRepository(
         favouriteCityRepositoryImpl: FavouriteCityRepositoryImpl
     ): FavouriteCityRepository
 
     @Binds
-    abstract fun bindFetchFavouriteCitiesUseCase(
+    fun bindFetchFavouriteCitiesUseCase(
         fetchFavouriteCitiesUseCaseImpl: FetchFavouriteCitiesUseCaseImpl
     ): FetchFavouriteCitiesUseCase
 
     @Binds
-    abstract fun bindDeleteFavouriteCityUseCase(
+    fun bindDeleteFavouriteCityUseCase(
         deleteFavouriteCityUseCaseImpl: DeleteFavouriteCityUseCaseImpl
     ): DeleteFavouriteCityUseCase
 
     @Binds
-    abstract fun bindAddFavouriteCityUseCase(
+    fun bindAddFavouriteCityUseCase(
         addFavouriteCityUseCaseImpl: AddFavouriteCityUseCaseImpl
     ): AddFavouriteCityUseCase
 }

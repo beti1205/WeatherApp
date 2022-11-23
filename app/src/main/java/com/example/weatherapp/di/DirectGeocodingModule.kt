@@ -1,9 +1,9 @@
 package com.example.weatherapp.di
 
+import com.example.weatherapp.common.AppConfig
 import com.example.weatherapp.feature.fetchplacebyname.data.DirectGeocodingService
 import com.example.weatherapp.feature.fetchplacebyname.domain.FetchPlaceByNameUseCase
 import com.example.weatherapp.feature.fetchplacebyname.domain.FetchPlaceByNameUseCaseImpl
-import com.example.weatherapp.common.AppConfig
 import com.squareup.moshi.Moshi
 import dagger.Binds
 import dagger.Module
@@ -17,7 +17,7 @@ import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DirectGeocodingModule {
+interface DirectGeocodingModule {
 
     companion object {
 
@@ -35,7 +35,7 @@ abstract class DirectGeocodingModule {
     }
 
     @Binds
-    abstract fun bindFetchPlaceByNameUseCase(
+    fun bindFetchPlaceByNameUseCase(
         fetchPlaceByNameUseCase: FetchPlaceByNameUseCaseImpl
     ): FetchPlaceByNameUseCase
 }

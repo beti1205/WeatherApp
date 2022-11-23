@@ -13,8 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val latitudeWarsaw = 52.15
-private const val longitudeWarsaw = 21.00
+private const val LATITUDE_WARSAW = 52.15
+private const val LONGITUDE_WARSAW = 21.00
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
@@ -43,8 +43,8 @@ class WeatherViewModel @Inject constructor(
 
         viewModelScope.launch {
             _weatherReport.value = fetchWeatherUseCase(
-                latitude = latitude ?: latitudeWarsaw,
-                longitude = longitude ?: longitudeWarsaw
+                latitude = latitude ?: LATITUDE_WARSAW,
+                longitude = longitude ?: LONGITUDE_WARSAW
             )
             _isLoading.value = false
         }
@@ -58,18 +58,17 @@ class WeatherViewModel @Inject constructor(
 
         viewModelScope.launch {
             val result = fetchPlaceByCoordinatesUseCase(
-                latitude = latitude ?: latitudeWarsaw,
-                longitude = longitude ?: longitudeWarsaw
+                latitude = latitude ?: LATITUDE_WARSAW,
+                longitude = longitude ?: LONGITUDE_WARSAW
             )
-            _cityName.value = when(result){
+            _cityName.value = when (result) {
                 is Result.Error -> null
                 is Result.Success -> result.data
             }
         }
     }
 
-    fun setCityName(name: String?){
+    fun setCityName(name: String?) {
         _cityName.value = name
     }
 }
-
