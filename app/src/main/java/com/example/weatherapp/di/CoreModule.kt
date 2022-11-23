@@ -1,6 +1,6 @@
 package com.example.weatherapp.di
 
-import com.example.weatherapp.common.adapter.UnixTimestampDateJsonAdapter
+import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.common.AppConfig
 import com.example.weatherapp.feature.fetchplacebyname.data.PlaceType
 import com.squareup.moshi.Moshi
@@ -22,7 +22,7 @@ object CoreModule {
         weatherBaseUrl = "https://api.openweathermap.org/data/2.5/",
         reverseGeocodingBaseUrl = "https://api.openweathermap.org/geo/1.0/",
         geocodingUrl = "https://photon.komoot.io/",
-        apiKey = "5fe4e1715cf27ea3002f0c66ebda3d51",
+        apiKey = BuildConfig.API_KEY,
         limit = 200,
         units = "metric"
     )
