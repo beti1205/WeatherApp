@@ -21,7 +21,7 @@ class FavouriteCityFragment : Fragment(R.layout.favourite_city_fragment) {
     private val binding get() = _binding!!
     private var actionMode: ActionMode? = null
 
-    companion object{
+    companion object {
         const val PLACE = "place"
         const val CITY_LOCATION = "cityLocation"
     }

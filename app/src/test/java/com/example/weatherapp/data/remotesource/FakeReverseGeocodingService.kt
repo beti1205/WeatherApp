@@ -2,6 +2,7 @@ package com.example.weatherapp.data.remotesource
 
 import com.example.weatherapp.feature.fetchplacebycoorinates.data.Place
 import com.example.weatherapp.feature.fetchplacebycoorinates.data.ReverseGeocodingService
+import java.io.IOException
 
 class FakeReverseGeocodingService(
     var places: List<Place> = listOf()
@@ -18,7 +19,7 @@ class FakeReverseGeocodingService(
         if (isSuccessful) {
             return places
         } else {
-            throw Exception()
+            throw IOException()
         }
     }
 }

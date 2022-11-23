@@ -14,7 +14,6 @@ interface FetchPlaceByCoordinatesUseCase {
         latitude: Double,
         longitude: Double
     ): Result<String?>
-
 }
 
 class FetchPlaceByCoordinatesUseCaseImpl @Inject constructor(

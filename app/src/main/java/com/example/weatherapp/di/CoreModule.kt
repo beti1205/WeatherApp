@@ -2,6 +2,7 @@ package com.example.weatherapp.di
 
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.common.AppConfig
+import com.example.weatherapp.common.adapter.UnixTimestampDateJsonAdapter
 import com.example.weatherapp.feature.fetchplacebyname.data.PlaceType
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.EnumJsonAdapter
@@ -47,5 +48,4 @@ object CoreModule {
         OkHttpClient.Builder().addInterceptor(
             interceptor
         ).build()
-
 }

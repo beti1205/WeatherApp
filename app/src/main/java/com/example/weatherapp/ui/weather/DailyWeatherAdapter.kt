@@ -42,7 +42,6 @@ class DailyWeatherAdapter :
                 dailyWeather.temp.max.toInt().toString()
             )
         }
-
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<DailyWeatherUI>() {
@@ -53,6 +52,5 @@ class DailyWeatherAdapter :
         override fun areContentsTheSame(oldItem: DailyWeatherUI, newItem: DailyWeatherUI): Boolean {
             return oldItem == newItem
         }
-
     }
 }

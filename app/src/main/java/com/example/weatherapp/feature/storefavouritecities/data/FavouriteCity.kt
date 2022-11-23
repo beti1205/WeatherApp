@@ -15,4 +15,4 @@ data class FavouriteCity(
     val county: String?,
     val latitude: Double,
     val longitude: Double
-): Parcelable
+) : Parcelable

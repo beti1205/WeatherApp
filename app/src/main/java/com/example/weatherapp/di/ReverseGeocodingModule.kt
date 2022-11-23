@@ -19,7 +19,7 @@ import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ReverseGeocodingModule {
+interface ReverseGeocodingModule {
 
     companion object {
 
@@ -37,12 +37,12 @@ abstract class ReverseGeocodingModule {
     }
 
     @Binds
-    abstract fun bindFetchPlaceByCoordinatesUseCase(
+    fun bindFetchPlaceByCoordinatesUseCase(
         fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCaseImpl
     ): FetchPlaceByCoordinatesUseCase
 
     @Binds
-    abstract fun bindLocaleProvider(
+    fun bindLocaleProvider(
         localeProvider: LocaleProviderImpl
     ): LocaleProvider
 }

@@ -5,9 +5,11 @@ import com.example.weatherapp.common.LocaleProvider
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.data.remotesource.FakeReverseGeocodingService
 import com.example.weatherapp.feature.fetchplacebycoorinates.data.Place
-import junit.framework.Assert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.util.*
@@ -29,7 +31,7 @@ class FetchPlaceByCoordinatesUseCaseTest {
     private lateinit var fakeReverseGeocodingService: FakeReverseGeocodingService
     private lateinit var fakeLocaleProvider: FakeLocaleProvider
 
-    //class under test
+    // class under test
     private lateinit var fetchPlaceByCoordinatesUseCase: FetchPlaceByCoordinatesUseCase
 
     @Before

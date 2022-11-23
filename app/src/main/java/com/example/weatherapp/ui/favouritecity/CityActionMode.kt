@@ -28,6 +28,5 @@ class CityActionMode(private val onDelete: () -> Unit) : ActionMode.Callback {
         return true
     }
 
-    override fun onDestroyActionMode(mode: ActionMode?) {
-    }
+    override fun onDestroyActionMode(mode: ActionMode?) = Unit
 }

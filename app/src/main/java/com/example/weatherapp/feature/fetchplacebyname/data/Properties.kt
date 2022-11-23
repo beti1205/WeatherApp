@@ -12,4 +12,4 @@ data class Properties(
     val country: String,
     val type: PlaceType?,
     val county: String?
-): Parcelable
+) : Parcelable
