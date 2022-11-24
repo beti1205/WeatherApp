@@ -5,9 +5,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -18,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
 import com.example.weatherapp.R
 import com.example.weatherapp.common.Result
 import com.example.weatherapp.databinding.WeatherFragmentBinding
@@ -44,7 +41,6 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = WeatherFragmentBinding.bind(view)
-        setHasOptionsMenu(true)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
@@ -98,6 +94,8 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
 
         val requestPermissionLauncher = createActivityResultLauncher()
         checkPermission(requestPermissionLauncher)
+
+        addMenuProvider()
     }
 
     private fun handleError(response: Result.Error) {
@@ -198,15 +196,16 @@ class WeatherFragment : Fragment(R.layout.weather_fragment) {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.weather_fragment_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController()
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    private fun addMenuProvider() {
+        activity?.addMenuProvider(
+            WeatherMenuProvider {
+                findNavController().navigate(
+                    WeatherFragmentDirections.actionWeatherFragmentToFavouriteCityFragment()
+                )
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     override fun onDestroyView() {

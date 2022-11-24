@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favouriteCityFragment"
+        android:id="@+id/check_favourite_cities_item"
         android:icon="@drawable/ic_baseline_location_city_24"
-        android:title="@string/city_change"
+        android:title="@string/check_favourite_cities"
         app:showAsAction="always" />
 </menu>
