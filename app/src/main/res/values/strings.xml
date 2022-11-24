@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="city_change">City change</string>
+    <string name="check_favourite_cities">Check favourite cities</string>
     <string name="temperature">%s ℃</string>
     <string name="max_temperature">Max:\n%s ℃</string>
     <string name="min_temperature">Min: \n%s ℃</string>
