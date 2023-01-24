@@ -1,8 +1,9 @@
 # WeatherApp
 
-This application allows you to check the current, hourly, and daily weather forecast for the current location. 
-It is also possible to add any location to your favourites list, so you can watch the forecast for multiple places.
-
+An intuitive and user-friendly weather application that provides real-time, hourly and
+daily forecasts for your current location. Additionally, the ability to save and track
+weather forecasts for multiple locations as favorites, making it easy to stay informed
+about weather conditions in your desired locations.
 
 ## Technologies
 - Retrofit
