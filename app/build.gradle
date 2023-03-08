@@ -77,4 +77,7 @@ dependencies {
 
     testImplementation "junit:junit:$version_junit"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutines"
+
+    androidTestImplementation "androidx.test:runner:$version_androidx_test_runner"
+    androidTestImplementation "junit:junit:$version_junit"
 }
